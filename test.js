@@ -7,7 +7,7 @@ fs.readFile(fileName, function(err, data) {
   if(err) throw err;
   var src = data.toString();
   var out = babel.transform(src, {
-    plugins: ['./lib/index.js'],
+    plugins: ['babel-plugin-syntax-object-rest-spread','./lib/index.js']
   });
   console.log(out.code);
 });
