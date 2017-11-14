@@ -8,6 +8,20 @@
 $ yarn add --dev babel-plugin-s2s-redux-actions-reducers
 ```
 
+## Install babel handler
+You need a handler compatible with syntax object rest spread.
+
+```
+$ yarn add --dev s2s-handler-babel-object-rest-spread
+```
+This handler can transform a code containing object rest spread like this.
+
+```js
+[action_name]: () => ({
+  ...state
+})
+```
+
 ## Create redux-actions-reducers template
 
 You should create babel-plugin-s2s-redux-actions-reducers template. \
@@ -35,14 +49,17 @@ export default handleActions(
 
 ## s2s.config.js
 
-s2s-redux-actions-reducers plugin watch the `src/reducers/*.js` files
+s2s-redux-actions-reducers plugin watch the `src/reducers/*.js` files and uses s2s-handler-babel-object-rest-spread
 
 ```js
+const handlerBabelSpread = require('s2s-handler-babel-object-rest-spread').default
+
 module.exports = {
   watch: './**/*.js',
   plugins: [
     {
       test: /src\/reducers\/(?!.*index).*\.js/,
+      handler: handlerBabelSpread,
       plugin: ['s2s-redux-actions-reducers']
     },
   ],
