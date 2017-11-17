@@ -121,6 +121,33 @@ export default handleActions(
 
 ```
 
+#### Request/Success/Failure pattern
+
+Type action name containing "Request" with camelcase and save it.
+
+```js
+getPokemonRequest
+```
+
+It will be expanded like this.
+
+#### Out:
+
+```js
+export default handleActions({
+  [actions.getPokemonRequest]: (state, action) => ({
+    ...state
+  }),
+  [actions.getPokemonSuccess]: (state, action) => ({
+    ...state
+  }),
+  [actions.getPokemonFailure]: (state, action) => ({
+    ...state
+  })
+}, initialState)
+```
+
+
 ## Result
 
 ```js

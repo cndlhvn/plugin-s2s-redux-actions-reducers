@@ -4,6 +4,37 @@ module.exports = babel => {
   return {
     name: "s2s-redux-actions-reducers",
     visitor: {
+      Program: {
+  	    enter(path, state){
+          path.traverse({
+            ObjectProperty(path){
+              if(path.node.key.type != "Identifier"){
+                return
+              }
+              if(path.node.shorthand == false){
+                return
+              }
+              const actionName = path.node.key.name
+              const ObjectExpression = path.find(parent => parent.isObjectExpression())
+
+              if (actionName.endsWith('Request')) {
+                ObjectExpression.node.properties.push(
+                  t.ObjectProperty(
+                    t.Identifier(actionName.replace(/Request$/, 'Success')),
+                    t.Identifier(actionName.replace(/Request$/, 'Success')),
+                    false,true
+                  ),
+                  t.ObjectProperty(
+                    t.Identifier(actionName.replace(/Request$/, 'Failure')),
+                    t.Identifier(actionName.replace(/Request$/, 'Failure')),
+                    false,true
+                  )
+                )
+              }
+            }
+          })
+        }
+      },
       ObjectProperty: function(path){
         if(!path.node.shorthand){
           return

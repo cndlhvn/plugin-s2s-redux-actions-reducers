@@ -4,10 +4,11 @@ import * as actions from '../actions'
 const initialState = {}
 
 export default handleActions({
-  [actions.getPokemonRequest]: (state, action) => ({
+  [actions.searchPokemon]: (state, action) => ({
     ...state
-   }),
-   getPokemonSuccess
+  }),
+  getPokemonRequest
+
   },
   initialState
 )
