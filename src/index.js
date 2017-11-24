@@ -6,6 +6,7 @@ module.exports = babel => {
     visitor: {
       Program: {
   	    enter(path, state){
+          const { autocomplete } = state.opts
           path.traverse({
             ObjectProperty(path){
               if(path.node.key.type != "Identifier"){
@@ -16,6 +17,8 @@ module.exports = babel => {
               }
               const actionName = path.node.key.name
               const ObjectExpression = path.find(parent => parent.isObjectExpression())
+
+              if(autocomplete == false){ return }
 
               if (actionName.endsWith('Request')) {
                 ObjectExpression.node.properties.push(

@@ -147,23 +147,20 @@ export default handleActions({
 }, initialState)
 ```
 
-
-## Result
+### Disable autocomplete
+The autocomplete function is activated in default. \
+If you want to disable autocomplete, pass a `{autocomplete: false}` parameter.
 
 ```js
-import { handleActions } from 'redux-actions'
-import * as actions from '../actions'
 
-const initialState = {}
+  plugins: [
+    {
+      test: /src\/reducers\/(?!.*index).*\.js/,
+      handler: handlerBabelSpread,
+      plugin: ['s2s-redux-actions-reducers',{autocomplete: false}]
+    }
+  ]
 
-export default handleActions(
-  {
-    [actions.searchPokemon]: (state, action) => ({
-      ...state
-    })
-  },
-  initialState
-)
 ```
 
 # Test
